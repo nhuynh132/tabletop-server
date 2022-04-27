@@ -51,7 +51,9 @@ io.sockets.on("connection", function (socket) {
     let ms = today.getUTCMilliseconds();
 
     console.log(
-      `DEBUG:: Device sent at: ${data} || Server received at: ${ms}.`
+      `DEBUG:: Device sent at: ${data} || Server received at: ${Date.now()} (diff: ${
+        data - Date.now()
+      }).`
     );
   });
 });
