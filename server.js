@@ -17,6 +17,7 @@ io.sockets.on("connection", function (socket) {
 
   // TODO: model-place
   socket.on("model-placed", function (data) {
+    console.log("DEBUG:: Model Plced!!");
     io.emit("model-placed", data);
     console.log("Model has been placed: \n", data);
   });
