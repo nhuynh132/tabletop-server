@@ -7,7 +7,7 @@ var PORT = 3001;
 connections = [];
 
 server.listen(PORT);
-console.log("Server is running on ${PORT}...");
+console.log("Server is running on..." + PORT);
 
 io.sockets.on("connection", function (socket) {
   connections.push(socket);
