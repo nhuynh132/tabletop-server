@@ -15,6 +15,21 @@ io.sockets.on("connection", function (socket) {
   connections.push(socket);
   console.log("Connect: %s sockets are connected", connections.length);
 
+  // Disconnect
+  socket.on("disconnect", function (data) {
+    connections.splice(connections.indexOf(socket), 1);
+    console.log("Connect: %s sockets are connected", connections.length);
+  });
+
+  socket.on("NodeJS Server Port", function (data) {
+    console.log("DEBUG:: received node js server port");
+    connections.forEach((connectedDevice) => {
+      console.log(`DEBUG:: <><> ${connectedDevice} is connected!\n`);
+    });
+    console.log(data);
+    io.sockets.emit("iOS Client Port", { msg: "Hi iOS Client." });
+  });
+
   // TODO: model-place
   socket.on("model-placed", function (data) {
     console.log("DEBUG:: Model Plced!!");
@@ -26,17 +41,5 @@ io.sockets.on("connection", function (socket) {
   socket.on("model-transformed", function (data) {
     io.emit("model-transformed", data);
     console.log("Model has transformed: \n", data);
-  });
-
-  // Disconnect
-  socket.on("disconnect", function (data) {
-    connections.splice(connections.indexOf(socket), 1);
-    console.log("Connect: %s sockets are connected", connections.length);
-  });
-
-  socket.on("NodeJS Server Port", function (data) {
-    console.log("DEBUG:: received node js server port");
-    console.log(data);
-    io.sockets.emit("iOS Client Port", { msg: "Hi iOS Client." });
   });
 });
