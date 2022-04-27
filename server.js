@@ -44,4 +44,15 @@ io.sockets.on("connection", function (socket) {
     io.emit("model-transformed", data);
     console.log("Model has transformed: \n", data);
   });
+
+  // Delay test
+  socket.on("time-check", function (data) {
+    var today = new Date();
+    let now =
+      today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+    console.log(
+      `DEBUG:: Device sent at: ${data} || Server received at: ${now}.`
+    );
+  });
 });
