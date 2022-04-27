@@ -48,11 +48,10 @@ io.sockets.on("connection", function (socket) {
   // Delay test
   socket.on("time-check", function (data) {
     var today = new Date();
-    let now =
-      today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let ms = today.getUTCMilliseconds();
 
     console.log(
-      `DEBUG:: Device sent at: ${data} || Server received at: ${today}.`
+      `DEBUG:: Device sent at: ${data} || Server received at: ${ms}.`
     );
   });
 });
