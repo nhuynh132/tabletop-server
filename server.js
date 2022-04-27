@@ -24,7 +24,9 @@ io.sockets.on("connection", function (socket) {
   socket.on("NodeJS Server Port", function (data) {
     console.log("DEBUG:: received node js server port");
     connections.forEach((connectedDevice) => {
-      console.log(`DEBUG:: <><> ${connectedDevice.id} is connected!\n`);
+      console.log(
+        `DEBUG:: <><> ${data} is connected with a socket id of ${connectedDevice.id}!\n`
+      );
     });
     console.log(data);
     io.sockets.emit("iOS Client Port", { msg: "Hi iOS Client." });
