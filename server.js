@@ -10,6 +10,8 @@ server.listen(PORT);
 console.log("Server is running on..." + PORT);
 
 io.sockets.on("connection", function (socket) {
+  console.log("DEBUG:: connection!!!");
+
   connections.push(socket);
   console.log("Connect: %s sockets are connected", connections.length);
 
@@ -32,6 +34,7 @@ io.sockets.on("connection", function (socket) {
   });
 
   socket.on("NodeJS Server Port", function (data) {
+    console.log("DEBUG:: received node js server port");
     console.log(data);
     io.sockets.emit("iOS Client Port", { msg: "Hi iOS Client." });
   });
