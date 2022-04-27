@@ -52,7 +52,7 @@ io.sockets.on("connection", function (socket) {
       today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
     console.log(
-      `DEBUG:: Device sent at: ${data} || Server received at: ${now}.`
+      `DEBUG:: Device sent at: ${data} || Server received at: ${today}.`
     );
   });
 });
