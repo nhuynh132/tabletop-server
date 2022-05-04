@@ -40,7 +40,7 @@ io.sockets.on("connection", function (socket) {
     console.log(
       `DEBUG:: Client ${
         connections[connections.length - 1].id
-      } wants to tap a model!`
+      } wants to tap a model! \n${data}`
     );
     socket.broadcast.emit("model-tapped", data);
   });
@@ -49,7 +49,9 @@ io.sockets.on("connection", function (socket) {
   // TODO: model-placed
   socket.on("model-placed", function (data) {
     console.log(
-      `DEBUG:: Client ${connections[connections.length - 1].id} wants to place!`
+      `DEBUG:: Client ${
+        connections[connections.length - 1].id
+      } wants to place! \n${data}`
     );
     socket.broadcast.emit("model-placed", data);
   });
@@ -57,7 +59,9 @@ io.sockets.on("connection", function (socket) {
   // TODO: model-transformed
   socket.on("model-transformed", function (data) {
     console.log(
-      `DEBUG:: Client ${connections[connections.length - 1].id} wants to move!`
+      `DEBUG:: Client ${
+        connections[connections.length - 1].id
+      } wants to move! \n${data}`
     );
     socket.broadcast.emit("model-transformed", data);
   });
