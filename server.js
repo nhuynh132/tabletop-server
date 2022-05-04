@@ -19,7 +19,7 @@ io.sockets.on("connection", function (socket) {
   socket.on("disconnect", function (data) {
     connections.splice(connections.indexOf(socket), 1);
     console.log(
-      "Device disconneced. Current connections: %s sockets are connected",
+      "[!!!!!]Device disconnected. Current connections: %s sockets are connected",
       connections.length
     );
   });
