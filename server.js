@@ -37,20 +37,20 @@ io.sockets.on("connection", function (socket) {
   //on model tapped function
   // TODO: model-tapped
   socket.on("model-tapped", function (data) {
-    console.log(`DEBUG:: Client ${connectedDevice.id} wants to tap a model!`);
+    console.log(`DEBUG:: Client ${connections[0].id} wants to tap a model!`);
     socket.broadcast.emit("model-tapped", data);
   });
 
   //on model place function
   // TODO: model-placed
   socket.on("model-placed", function (data) {
-    console.log(`DEBUG:: Client ${connectedDevice.id} wants to place!`);
+    console.log(`DEBUG:: Client ${connections[0].id} wants to place!`);
     socket.broadcast.emit("model-placed", data);
   });
 
   // TODO: model-transformed
   socket.on("model-transformed", function (data) {
-    console.log(`DEBUG:: Client ${connectedDevice.id} wants to move!`);
+    console.log(`DEBUG:: Client ${connections[0].id} wants to move!`);
     socket.broadcast.emit("model-transformed", data);
   });
 
