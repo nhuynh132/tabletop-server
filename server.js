@@ -10,7 +10,7 @@ server.listen(PORT);
 console.log("Server is running on..." + PORT);
 
 io.sockets.on("connection", function (socket) {
-  console.log("DEBUG:: connection!!!");
+  console.log("DEBUG:: Connection established!");
 
   connections.push(socket);
   console.log("Connect: %s sockets are connected", connections.length);
@@ -24,6 +24,7 @@ io.sockets.on("connection", function (socket) {
     );
   });
 
+  //test data emission
   socket.on("NodeJS Server Port", function (data) {
     console.log("DEBUG:: received node js server port");
     connections.forEach((connectedDevice) => {
@@ -35,17 +36,16 @@ io.sockets.on("connection", function (socket) {
     io.sockets.emit("iOS Client Port", { msg: "Hi iOS Client." });
   });
 
-  // TODO: model-place
+  //on model place function
   socket.on("model-placed", function (data) {
-    console.log("DEBUG:: Model Plced!!");
-    io.emit("model-placed", data);
-    console.log("Model has been placed: \n", data);
+    console.log(`DEBUG:: Client ${connectedDevice.id} wants to place!`);
+    socket.broadcast.emit("model-placed", data);
   });
 
   // TODO: model-transformed
   socket.on("model-transformed", function (data) {
-    io.emit("model-transformed", data);
-    console.log("Model has transformed: \n", data);
+    console.log(`DEBUG:: Client ${connectedDevice.id} wants to move!`);
+    socket.broadcast.emit("model-transformed", data);
   });
 
   // Delay test
