@@ -10,7 +10,7 @@ server.listen(PORT);
 console.log("Server is running on..." + PORT);
 
 io.sockets.on("connection", function (socket) {
-  console.log("DEBUG:: Connection established!");
+  console.log("DEBUG:: Connection established! serverTest!");
 
   connections.push(socket);
   console.log("Connect: %s sockets are connected", connections.length);
