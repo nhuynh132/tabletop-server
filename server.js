@@ -18,7 +18,10 @@ io.sockets.on("connection", function (socket) {
   // Disconnect
   socket.on("disconnect", function (data) {
     connections.splice(connections.indexOf(socket), 1);
-    console.log("Connect: %s sockets are connected", connections.length);
+    console.log(
+      "Device disconneced. Current connections: %s sockets are connected",
+      connections.length
+    );
   });
 
   socket.on("NodeJS Server Port", function (data) {
