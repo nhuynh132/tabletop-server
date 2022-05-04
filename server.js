@@ -32,11 +32,17 @@ io.sockets.on("connection", function (socket) {
         `DEBUG:: <><> ${data} is connected with a socket id of ${connectedDevice.id}!\n`
       );
     });
-    console.log(data);
-    io.sockets.emit("iOS Client Port", { msg: "Hi iOS Client." });
+  });
+
+  //on model tapped function
+  // TODO: model-tapped
+  socket.on("model-tapped", function (data) {
+    console.log(`DEBUG:: Client ${connectedDevice.id} wants to tap a model!`);
+    socket.broadcast.emit("model-tapped", data);
   });
 
   //on model place function
+  // TODO: model-placed
   socket.on("model-placed", function (data) {
     console.log(`DEBUG:: Client ${connectedDevice.id} wants to place!`);
     socket.broadcast.emit("model-placed", data);
