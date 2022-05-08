@@ -28,8 +28,8 @@ io.sockets.on("connection", function (socket) {
     );
 
     console.log("AFTER DC: Here is the list of current players:")
-    for (var username in currPlayerList) {
-      console.log(username);
+    for (var i in currPlayerList) {
+      console.log(currPlayerList[i]);
     }
   });
 
@@ -44,8 +44,8 @@ io.sockets.on("connection", function (socket) {
     currPlayerList.set(socket.id, data);
 
     console.log("AFTER C: Here is the list of current players:")
-    for (var username in currPlayerList) {
-      console.log(username);
+    for (var i in currPlayerList) {
+      console.log(currPlayerList[i]);
     }
   });
 
