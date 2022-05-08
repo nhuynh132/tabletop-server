@@ -6,7 +6,7 @@ var io = require("socket.io")(server);
 var PORT = 3001;
 
 connections = [];
-currPlayerList = [];
+currPlayerList = new Map();
 
 server.listen(PORT);
 console.log("Server is running on..." + PORT);
@@ -36,9 +36,8 @@ io.sockets.on("connection", function (socket) {
     //     `DEBUG:: <><> ${data} is connected with a socket id of ${connectedDevice.id}!\n`
     //   );
     // });
-    console.log(connections[0].connectedDevice);
-
-    currPlayerList += data;
+    currPlayerList.set(data, socket.id);
+    console.log(data, socket.id)
   });
 
   //on model tapped function
