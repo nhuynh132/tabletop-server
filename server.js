@@ -36,7 +36,7 @@ io.sockets.on("connection", function (socket) {
     //     `DEBUG:: <><> ${data} is connected with a socket id of ${connectedDevice.id}!\n`
     //   );
     // });
-    console.log(connections);
+    console.log(connections[0].connectedDevice);
 
     currPlayerList += data;
   });
