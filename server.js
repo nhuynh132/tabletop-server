@@ -27,7 +27,7 @@ io.sockets.on("connection", function (socket) {
       connections.length
     );
 
-    console.log("Here is the list of remaining players:")
+    console.log("AFTER DC: Here is the list of current players:")
     for (var username in currPlayerList) {
       console.log(username);
     }
@@ -42,6 +42,11 @@ io.sockets.on("connection", function (socket) {
     //   );
     // });
     currPlayerList.set(socket.id, data);
+
+    console.log("AFTER C: Here is the list of current players:")
+    for (var username in currPlayerList) {
+      console.log(username);
+    }
   });
 
   //on model tapped function
