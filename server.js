@@ -28,9 +28,10 @@ io.sockets.on("connection", function (socket) {
     );
 
     console.log("AFTER DC: Here is the list of current players:")
-    for (var i in currPlayerList) {
-      console.log(currPlayerList[i]);
+    for (const [key, value] of Object.entries(currPlayerList)) {
+      console.log(value);
     }
+    console.log("END \n\n");
   });
 
   //test data emission
@@ -44,9 +45,10 @@ io.sockets.on("connection", function (socket) {
     currPlayerList.set(socket.id, data);
 
     console.log("AFTER C: Here is the list of current players:")
-    for (var i in currPlayerList) {
-      console.log(currPlayerList[i]);
+    for (const [key, value] of Object.entries(currPlayerList)) {
+      console.log(value);
     }
+    console.log("END \n\n");
   });
 
   //on model tapped function
