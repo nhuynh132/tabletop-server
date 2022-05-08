@@ -27,6 +27,7 @@ io.sockets.on("connection", function (socket) {
       connections.length
     );
 
+    // DEBUG
     console.log("AFTER DC: Here is the list of current players:")
     for (const [key, value] of currPlayerList) {
       console.log(value);
@@ -44,6 +45,8 @@ io.sockets.on("connection", function (socket) {
     // });
     currPlayerList.set(socket.id, data);
 
+
+    // DEBUG
     console.log("AFTER C: Here is the list of current players:")
     for (const [key, value] of currPlayerList) {
       console.log(value);
