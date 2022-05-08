@@ -1,10 +1,12 @@
 var express = require("express");
+const { CLIENT_RENEG_LIMIT } = require("tls");
 var app = express();
 var server = require("http").createServer(app);
 var io = require("socket.io")(server);
 var PORT = 3001;
 
 connections = [];
+currPlayerList = [];
 
 server.listen(PORT);
 console.log("Server is running on..." + PORT);
@@ -22,16 +24,21 @@ io.sockets.on("connection", function (socket) {
       "[!!!!!]Device disconnected. Current connections: %s sockets are connected",
       connections.length
     );
+
+
   });
 
   //test data emission
   socket.on("NodeJS Server Port", function (data) {
     console.log("DEBUG:: received node js server port");
-    connections.forEach((connectedDevice) => {
-      console.log(
-        `DEBUG:: <><> ${data} is connected with a socket id of ${connectedDevice.id}!\n`
-      );
-    });
+    // connections.forEach((connectedDevice) => {
+    //   console.log(
+    //     `DEBUG:: <><> ${data} is connected with a socket id of ${connectedDevice.id}!\n`
+    //   );
+    // });
+    console.log(connections);
+
+    currPlayerList += data;
   });
 
   //on model tapped function
