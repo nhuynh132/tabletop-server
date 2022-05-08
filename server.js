@@ -19,25 +19,29 @@ io.sockets.on("connection", function (socket) {
 
   // Disconnect
   socket.on("disconnect", function (data) {
+    console.log(`Player ${currPlayerList.get(socket.id)} is disconnecting...`);
+    currPlayerList.delete(socket.id);
     connections.splice(connections.indexOf(socket), 1);
     console.log(
       "[!!!!!]Device disconnected. Current connections: %s sockets are connected",
       connections.length
     );
 
-
+    console.log("Here is the list of remaining players:")
+    for (var username in currPlayerList) {
+      console.log(username);
+    }
   });
 
   //test data emission
-  socket.on("NodeJS Server Port", function (data) {
+  socket.on("New player joined", function (data) {
     console.log("DEBUG:: received node js server port");
     // connections.forEach((connectedDevice) => {
     //   console.log(
     //     `DEBUG:: <><> ${data} is connected with a socket id of ${connectedDevice.id}!\n`
     //   );
     // });
-    currPlayerList.set(data, socket.id);
-    console.log(data, socket.id)
+    currPlayerList.set(socket.id, data);
   });
 
   //on model tapped function
