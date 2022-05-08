@@ -37,33 +37,33 @@ io.sockets.on("connection", function (socket) {
   //on model tapped function
   // TODO: model-tapped
   socket.on("model-tapped", function (data) {
-    console.log(
-      `DEBUG:: Client ${
-        connections[connections.length - 1].id
-      } wants to tap a model! \n${data} \n${JSON.stringify(data, null, 2)}`
-    );
+    // console.log(
+    //   `DEBUG:: Client ${
+    //     connections[connections.length - 1].id
+    //   } wants to tap a model! \n${data} \n${JSON.stringify(data, null, 2)}`
+    // );
     socket.broadcast.emit("model-tapped", data);
   });
 
   //on model place function
   // TODO: model-placed
   socket.on("model-placed", function (data) {
-    console.log(
-      `DEBUG:: Client ${
-        connections[connections.length - 1].id
-      } wants to place! \n${JSON.stringify(data, null, 2)}`
-    );
+    // console.log(
+    //   `DEBUG:: Client ${
+    //     connections[connections.length - 1].id
+    //   } wants to place! \n${JSON.stringify(data, null, 2)}`
+    // );
 
     socket.broadcast.emit("model-placed", data);
   });
 
   // TODO: model-transformed
   socket.on("model-transformed", function (data) {
-    console.log(
-      `DEBUG:: Client ${
-        connections[connections.length - 1].id
-      } wants to move! \n${data} \n${JSON.stringify(data, null, 2)}`
-    );
+    // console.log(
+    //   `DEBUG:: Client ${
+    //     connections[connections.length - 1].id
+    //   } wants to move! \n${data} \n${JSON.stringify(data, null, 2)}`
+    // );
     socket.broadcast.emit("model-transformed", data);
   });
 
