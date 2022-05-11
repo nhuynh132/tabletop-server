@@ -115,6 +115,8 @@ io.sockets.on("connection", function (socket) {
     let currPlayerListArr = Array.from(currPlayerList.values());
     var data = JSON.stringify(currPlayerListArr);
 
+    console.log("THIS MY DATYA BRO: ", data);
+
     io.emit("playerList-req", data);
   });
 });
