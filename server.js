@@ -42,6 +42,10 @@ io.sockets.on("connection", function (socket) {
 
     //update client's player list
     // socket.emit("playerList-req", Array.from(currPlayerList.values()));
+    // socket.broadcast.emit(
+    //   "playerList-req",
+    //   Array.from(currPlayerList.values())
+    // );
   });
 
   // On new Connect
@@ -53,6 +57,7 @@ io.sockets.on("connection", function (socket) {
 
     // DEBUG
     console.log("AFTER C: Here is the list of current players:");
+
     for (const [key, value] of currPlayerLisst) {
       console.log(">>> ",value);
     }
@@ -74,9 +79,9 @@ io.sockets.on("connection", function (socket) {
   // TODO: model-placed
   socket.on("model-placed", function (data) {
     console.log(
-      `DEBUG:: Client ${
-        connections[connections.length - 1].id
-      } wants to place! \n${JSON.stringify(data, null, 2)}`
+      `DEBUG:: Client ${currPlayerList.get(
+        socket.id
+      )} wants to place! \n${JSON.stringify(data, null, 2)}`
     );
 
     socket.broadcast.emit("model-placed", data);
@@ -99,7 +104,6 @@ io.sockets.on("connection", function (socket) {
     );
   });
 
-  
   // TODO: update players
   socket.on("playerList-req", function (data) {
     //DEBUG
