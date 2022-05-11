@@ -34,8 +34,14 @@ io.sockets.on("connection", function (socket) {
     }
     console.log("END \n\n");
 
+
+    let currPlayerListArr = Array.from(currPlayerList.values());
+    var data = JSON.stringify(currPlayerListArr);
+
+    io.emit("playerList-req", data);
+
     //update client's player list
-    socket.emit("playerbase-updated", Array.from(currPlayerList.values()));
+    // socket.emit("playerList-req", Array.from(currPlayerList.values()));
   });
 
   // On new Connect
@@ -48,9 +54,14 @@ io.sockets.on("connection", function (socket) {
     // DEBUG
     console.log("AFTER C: Here is the list of current players:");
     for (const [key, value] of currPlayerLisst) {
-      console.log(value);
+      console.log(">>> ",value);
     }
     console.log("END \n\n");
+
+    let currPlayerListArr = Array.from(currPlayerList.values());
+    var data = JSON.stringify(currPlayerListArr);
+
+    io.emit("playerList-req", data);
   });
 
   //on model tapped function
@@ -94,9 +105,12 @@ io.sockets.on("connection", function (socket) {
     //DEBUG
     console.log("player request::RECEIVED PLAYERUPDATE");
     for (const [key, value] of currPlayerList) {
-      console.log(value);
+      console.log(">>> ",value);
     }
 
-    io.emit("playerList-req", Array.from(currPlayerList.values()));
+    let currPlayerListArr = Array.from(currPlayerList.values());
+    var data = JSON.stringify(currPlayerListArr);
+
+    io.emit("playerList-req", data);
   });
 });
