@@ -38,7 +38,7 @@ io.sockets.on("connection", function (socket) {
     socket.emit("playerbase-updated", Array.from(currPlayerList.values()));
   });
 
-  //test data emission
+  // On new Connect
   socket.on("New player joined", function (data) {
     console.log("DEBUG:: received node js server port");
     let incomingUserName = data.split(":");
@@ -47,31 +47,15 @@ io.sockets.on("connection", function (socket) {
 
     // DEBUG
     console.log("AFTER C: Here is the list of current players:");
-    for (const [key, value] of currPlayerList) {
+    for (const [key, value] of currPlayerLisst) {
       console.log(value);
     }
     console.log("END \n\n");
   });
 
-  // TODO: update players
-  socket.on("playerbase-updated", function (data) {
-    //DEBUG
-    console.log("player request::RECEIVED PLAYERUPDATE");
-    for (const [key, value] of currPlayerList) {
-      console.log(value);
-    }
-
-    io.emit("playerbase-updated", Array.from(currPlayerList.values()));
-  });
-
   //on model tapped function
   // TODO: model-tapped
   socket.on("model-tapped", function (data) {
-    // console.log(
-    //   `DEBUG:: Client ${
-    //     connections[connections.length - 1].id
-    //   } wants to tap a model! \n${data} \n${JSON.stringify(data, null, 2)}`
-    // );
     socket.broadcast.emit("model-tapped", data);
   });
 
@@ -89,11 +73,6 @@ io.sockets.on("connection", function (socket) {
 
   // TODO: model-transformed
   socket.on("model-transformed", function (data) {
-    // console.log(
-    //   `DEBUG:: Client ${
-    //     connections[connections.length - 1].id
-    //   } wants to move! \n${data} \n${JSON.stringify(data, null, 2)}`
-    // );
     socket.broadcast.emit("model-transformed", data);
   });
 
@@ -107,5 +86,17 @@ io.sockets.on("connection", function (socket) {
         data - Date.now()
       }).`
     );
+  });
+
+  
+  // TODO: update players
+  socket.on("playerList-req", function (data) {
+    //DEBUG
+    console.log("player request::RECEIVED PLAYERUPDATE");
+    for (const [key, value] of currPlayerList) {
+      console.log(value);
+    }
+
+    io.emit("playerList-req", Array.from(currPlayerList.values()));
   });
 });
