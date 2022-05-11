@@ -58,7 +58,7 @@ io.sockets.on("connection", function (socket) {
     // DEBUG
     console.log("AFTER C: Here is the list of current players:");
 
-    for (const [key, value] of currPlayerLisst) {
+    for (const [key, value] of currPlayerList) {
       console.log(">>> ",value);
     }
     console.log("END \n\n");
