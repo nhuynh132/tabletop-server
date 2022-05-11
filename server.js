@@ -38,12 +38,9 @@ io.sockets.on("connection", function (socket) {
   //test data emission
   socket.on("New player joined", function (data) {
     console.log("DEBUG:: received node js server port");
-    // connections.forEach((connectedDevice) => {
-    //   console.log(
-    //     `DEBUG:: <><> ${data} is connected with a socket id of ${connectedDevice.id}!\n`
-    //   );
-    // });
-    currPlayerList.set(socket.id, data);
+    let incomingUserName = data.split(":");
+
+    currPlayerList.set(socket.id, incomingUserName[1]);
 
     // DEBUG
     console.log("AFTER C: Here is the list of current players:");
@@ -55,8 +52,7 @@ io.sockets.on("connection", function (socket) {
 
   // TODO: update players
   socket.on("playerbase-updated", function (data) {
-    //emit
-    socket.emit("playerbase-updated", connections);
+    socket.emit("playerbase-updated", Array.from(currPlayerList.values()));
   });
 
   //on model tapped function
