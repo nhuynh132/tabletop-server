@@ -33,6 +33,9 @@ io.sockets.on("connection", function (socket) {
       console.log(value);
     }
     console.log("END \n\n");
+
+    //update client's player list
+    socket.emit("playerbase-updated", Array.from(currPlayerList.values()));
   });
 
   //test data emission
