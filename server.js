@@ -63,9 +63,9 @@ io.sockets.on("connection", function (socket) {
   // TODO: model-placed
   socket.on("model-placed", function (data) {
     console.log(
-      `DEBUG:: Client ${
-        connections[connections.length - 1].id
-      } wants to place! \n${JSON.stringify(data, null, 2)}`
+      `DEBUG:: Client ${currPlayerList.get(
+        socket.id
+      )} wants to place! \n${JSON.stringify(data, null, 2)}`
     );
 
     socket.broadcast.emit("model-placed", data);
