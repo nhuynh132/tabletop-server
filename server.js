@@ -35,7 +35,10 @@ io.sockets.on("connection", function (socket) {
     console.log("END \n\n");
 
     //update client's player list
-    socket.emit("playerbase-updated", Array.from(currPlayerList.values()));
+    socket.broadcast.emit(
+      "playerList-req",
+      Array.from(currPlayerList.values())
+    );
   });
 
   // On new Connect
