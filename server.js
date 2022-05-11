@@ -56,9 +56,9 @@ io.sockets.on("connection", function (socket) {
   // TODO: update players
   socket.on("playerbase-updated", function (data) {
     //DEBUG
-    console.log("RECEIVED PLAYERUPDATE");
-    for (const userName in Array.from(currPlayerList.values())) {
-      console.log(userName);
+    console.log("player request::RECEIVED PLAYERUPDATE");
+    for (const [key, value] of currPlayerList) {
+      console.log(value);
     }
 
     socket.emit("playerbase-updated", Array.from(currPlayerList.values()));
