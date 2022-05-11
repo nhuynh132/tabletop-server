@@ -61,7 +61,7 @@ io.sockets.on("connection", function (socket) {
       console.log(value);
     }
 
-    socket.emit("playerbase-updated", Array.from(currPlayerList.values()));
+    io.emit("playerbase-updated", Array.from(currPlayerList.values()));
   });
 
   //on model tapped function
