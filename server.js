@@ -6,80 +6,58 @@ var io = require("socket.io")(server);
 var PORT = 3001;
 
 connections = [];
-currPlayerList = new Map();
+socketIDByUsername = new Map();
 
 server.listen(PORT);
 console.log("Server is running on..." + PORT);
 
 io.sockets.on("connection", function (socket) {
-  console.log("DEBUG:: Connection established! serverTest!");
-
   connections.push(socket);
   console.log("Connect: %s sockets are connected", connections.length);
 
-  // Disconnect
+
   socket.on("disconnect", function (data) {
-    console.log(`Player ${currPlayerList.get(socket.id)} is disconnecting...`);
-    currPlayerList.delete(socket.id);
+    console.log(`Player ${socketIDByUsername.get(socket.id)} is disconnecting...`);
+    socketIDByUsername.delete(socket.id);
     connections.splice(connections.indexOf(socket), 1);
-    console.log(
-      "[!!!!!]Device disconnected. Current connections: %s sockets are connected",
-      connections.length
-    );
 
-    // DEBUG
-    console.log("AFTER DC: Here is the list of current players:");
-    for (const [key, value] of currPlayerList) {
-      console.log(value);
-    }
-    console.log("END \n\n");
+    console.log("Disconnect: %s sockets are connected", connections.length);
+    console.log("List of current players: ");
+    for (const [key, value] of socketIDByUsername) { console.log("> ",value); }
+    console.log("End of list...");
 
-
-    let currPlayerListArr = Array.from(currPlayerList.values());
-    var data = JSON.stringify(currPlayerListArr);
-
+    // Get array of usernames, pack into JSON, and emit to all connected clients
+    let socketIDByUsernameArr = Array.from(socketIDByUsername.values());
+    var data = JSON.stringify(socketIDByUsernameArr);
     io.emit("playerList-req", data);
-
-    //update client's player list
-    // socket.emit("playerList-req", Array.from(currPlayerList.values()));
-    // socket.broadcast.emit(
-    //   "playerList-req",
-    //   Array.from(currPlayerList.values())
-    // );
   });
 
-  // On new Connect
+
   socket.on("New player joined", function (data) {
-    console.log("DEBUG:: received node js server port");
     let incomingUserName = data.split(":");
+    socketIDByUsername.set(socket.id, incomingUserName[1]);
 
-    currPlayerList.set(socket.id, incomingUserName[1]);
+    console.log("New Player: %s sockets are connected", connections.length);
+    console.log("List of current players: ");
+    for (const [key, value] of socketIDByUsername) { console.log("> ",value); }
+    console.log("End of list...");
 
-    // DEBUG
-    console.log("AFTER C: Here is the list of current players:");
+    // Get array of usernames, pack into JSON, and emit to all connected clients
 
-    for (const [key, value] of currPlayerList) {
-      console.log(">>> ",value);
-    }
-    console.log("END \n\n");
-
-    let currPlayerListArr = Array.from(currPlayerList.values());
-    var data = JSON.stringify(currPlayerListArr);
-
+    let socketIDByUsernameArr = Array.from(socketIDByUsername.values());
+    var data = JSON.stringify(socketIDByUsernameArr);
     io.emit("playerList-req", data);
   });
 
-  //on model tapped function
-  // TODO: model-tapped
+
   socket.on("model-tapped", function (data) {
     socket.broadcast.emit("model-tapped", data);
   });
 
-  //on model place function
-  // TODO: model-placed
+
   socket.on("model-placed", function (data) {
     console.log(
-      `DEBUG:: Client ${currPlayerList.get(
+      `DEBUG:: Client ${socketIDByUsername.get(
         socket.id
       )} wants to place! \n${JSON.stringify(data, null, 2)}`
     );
@@ -87,11 +65,12 @@ io.sockets.on("connection", function (socket) {
     socket.broadcast.emit("model-placed", data);
   });
 
-  // TODO: model-transformed
+
   socket.on("model-transformed", function (data) {
     socket.broadcast.emit("model-transformed", data);
   });
 
+  
   // Delay test
   socket.on("time-check", function (data) {
     var today = new Date();
@@ -108,12 +87,12 @@ io.sockets.on("connection", function (socket) {
   socket.on("playerList-req", function (data) {
     //DEBUG
     console.log("player request::RECEIVED PLAYERUPDATE");
-    for (const [key, value] of currPlayerList) {
+    for (const [key, value] of socketIDByUsername) {
       console.log(">>> ",value);
     }
 
-    let currPlayerListArr = Array.from(currPlayerList.values());
-    var data = JSON.stringify(currPlayerListArr);
+    let socketIDByUsernameArr = Array.from(socketIDByUsername.values());
+    var data = JSON.stringify(socketIDByUsernameArr);
 
     console.log("THIS MY DATYA BRO: ", data);
 
