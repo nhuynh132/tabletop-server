@@ -5,7 +5,9 @@ var server = require("http").createServer(app);
 var io = require("socket.io")(server);
 var PORT = 3001;
 
+// List of socket connections 
 connections = [];
+// Map of socket.id's to usernames
 socketIDByUsername = new Map();
 
 server.listen(PORT);
@@ -17,7 +19,8 @@ io.sockets.on("connection", function (socket) {
 
 
   socket.on("disconnect", function (data) {
-    console.log(`Player ${socketIDByUsername.get(socket.id)} is disconnecting...`);
+    let username = socketIDByUsername.get(socket.id)
+    console.log(`Player ${username} is disconnecting...`);
     socketIDByUsername.delete(socket.id);
     connections.splice(connections.indexOf(socket), 1);
 
