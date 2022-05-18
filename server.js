@@ -5,7 +5,7 @@ var server = require("http").createServer(app);
 var io = require("socket.io")(server);
 var PORT = 3001;
 
-// List of socket connections 
+// List of socket connections
 connections = [];
 // Map of socket.id's to usernames
 socketIDByUsername = new Map();
@@ -17,16 +17,17 @@ io.sockets.on("connection", function (socket) {
   connections.push(socket);
   console.log("Connect: %s sockets are connected", connections.length);
 
-
   socket.on("disconnect", function (data) {
-    let username = socketIDByUsername.get(socket.id)
+    let username = socketIDByUsername.get(socket.id);
     console.log(`Player ${username} is disconnecting...`);
     socketIDByUsername.delete(socket.id);
     connections.splice(connections.indexOf(socket), 1);
 
     console.log("Disconnect: %s sockets are connected", connections.length);
     console.log("List of current players: ");
-    for (const [key, value] of socketIDByUsername) { console.log("> ",value); }
+    for (const [key, value] of socketIDByUsername) {
+      console.log("> ", value);
+    }
     console.log("End of list...");
 
     // Get array of usernames, pack into JSON, and emit to all connected clients
@@ -34,7 +35,6 @@ io.sockets.on("connection", function (socket) {
     var data = JSON.stringify(socketIDByUsernameArr);
     io.emit("playerList-req", data);
   });
-
 
   socket.on("New player joined", function (data) {
     let incomingUserName = data.split(":");
@@ -42,7 +42,9 @@ io.sockets.on("connection", function (socket) {
 
     console.log("New Player: %s sockets are connected", connections.length);
     console.log("List of current players: ");
-    for (const [key, value] of socketIDByUsername) { console.log("> ",value); }
+    for (const [key, value] of socketIDByUsername) {
+      console.log("> ", value);
+    }
     console.log("End of list...");
 
     // Get array of usernames, pack into JSON, and emit to all connected clients
@@ -52,11 +54,9 @@ io.sockets.on("connection", function (socket) {
     io.emit("playerList-req", data);
   });
 
-
   socket.on("model-tapped", function (data) {
     socket.broadcast.emit("model-tapped", data);
   });
-
 
   socket.on("model-placed", function (data) {
     console.log(
@@ -68,12 +68,15 @@ io.sockets.on("connection", function (socket) {
     socket.broadcast.emit("model-placed", data);
   });
 
-
   socket.on("model-transformed", function (data) {
+    console.log(
+      `DEBUG:: Client ${socketIDByUsername.get(
+        socket.id
+      )} wants to move! \n${JSON.stringify(data, null, 2)}`
+    );
     socket.broadcast.emit("model-transformed", data);
   });
 
-  
   // Delay test
   socket.on("time-check", function (data) {
     var today = new Date();
@@ -91,7 +94,7 @@ io.sockets.on("connection", function (socket) {
     //DEBUG
     console.log("player request::RECEIVED PLAYERUPDATE");
     for (const [key, value] of socketIDByUsername) {
-      console.log(">>> ",value);
+      console.log(">>> ", value);
     }
 
     let socketIDByUsernameArr = Array.from(socketIDByUsername.values());
