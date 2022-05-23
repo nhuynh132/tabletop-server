@@ -58,6 +58,15 @@ io.sockets.on("connection", function (socket) {
     socket.broadcast.emit("model-tapped", data);
   });
 
+  socket.on("model-selected", function(data) {
+    console.log(
+      `DEBUG:: Client ${socketIDByUsername.get(
+        socket.id
+      )} selected! \n${JSON.stringify(data, null, 2)}`
+    );
+    socket.broadcast.emit("model-selected", data);
+  });
+
   socket.on("model-placed", function (data) {
     console.log(
       `DEBUG:: Client ${socketIDByUsername.get(
