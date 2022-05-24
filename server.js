@@ -39,6 +39,7 @@ io.sockets.on("connection", function (socket) {
   socket.on("New player joined", function (data) {
     let incomingUserName = data.split(":");
     socketIDByUsername.set(socket.id, incomingUserName[1]);
+    socket.broadcast.emit("New player joined", incomingUserName)
 
     console.log("New Player: %s sockets are connected", connections.length);
     console.log("List of current players: ");
