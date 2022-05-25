@@ -110,8 +110,8 @@ io.sockets.on("connection", function (socket) {
       console.log(">>> ", value);
     }
 
-    let data = Array.from(socketIDByUsername.values());
-    // var data = JSON.stringify(socketIDByUsernameArr);
+    let socketIDByUsernameArr = Array.from(socketIDByUsername.values());
+    var data = JSON.stringify(socketIDByUsernameArr);
 
     console.log("THIS MY DATYA BRO: ", data);
 
