@@ -21,8 +21,8 @@ io.sockets.on("connection", function (socket) {
     let username = socketIDByUsername.get(socket.id);
     console.log(`Player ${username} is disconnecting...`);
 
-    socket.broadcast.emit("disconnect", username)
-    
+    socket.broadcast.emit("disconnect user", username)
+
     socketIDByUsername.delete(socket.id);
     connections.splice(connections.indexOf(socket), 1);
 
