@@ -95,7 +95,7 @@ io.sockets.on("connection", function (socket) {
   });
 
   socket.on("delete-selected-model", function(data) {
-    socket.broadcast.emit("delete-all-models", data);
+    socket.broadcast.emit("delete-selected-model", data);
   });
 
   // Delay test
