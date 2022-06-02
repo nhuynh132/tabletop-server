@@ -90,6 +90,14 @@ io.sockets.on("connection", function (socket) {
     socket.broadcast.emit("model-transformed", data);
   });
 
+  socket.on("delete-all-models", function(data) {
+    socket.broadcast.emit("delete-all-models", "");
+  });
+
+  socket.on("delete-selected-model", function(data) {
+    socket.broadcast.emit("delete-all-models", data);
+  });
+
   // Delay test
   socket.on("time-check", function (data) {
     var today = new Date();
